@@ -33,7 +33,6 @@ jobs:
       run: |
         cp aarch64-android*-lkm/*_kernelsu.ko ./userspace/ksud/bin/aarch64/
         cp x86_64-android*-lkm/*_kernelsu.ko ./userspace/ksud/bin/x86_64/
-        cp xx-android*-lkm/*_kernelsu.ko ./userspace/ksud/bin/aarch64/
     
     - name: Prepare ksuinit
       if: ${{ inputs.pack_ksuinit }}
@@ -72,3 +71,4 @@ jobs:
       with:
         name: ksud-${{ inputs.target }}
         path: target/${{ inputs.target }}/release/ksud*
+        
