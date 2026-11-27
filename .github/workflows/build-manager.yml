@@ -131,19 +131,11 @@ jobs:
       expected_hash: ${{ needs.generate-key.outputs.expected_hash || '' }}
     secrets: inherit
 
-  build-xx-lkm:
-    needs: generate-key
-    uses: ./.github/workflows/build-xx-lkm.yml
-    with:
-      expected_size: ${{ needs.generate-key.outputs.expected_size || '' }}
-      expected_hash: ${{ needs.generate-key.outputs.expected_hash || '' }}
-    secrets: inherit
-
   build-ksuinit:
     uses: ./.github/workflows/ksuinit.yml
 
   build-ksud:
-    needs: [build-lkm, build-xx-lkm, build-ksuinit]
+    needs: [build-lkm, build-ksuinit]
     strategy:
       matrix:
         include:
@@ -158,7 +150,7 @@ jobs:
       pack_ksuinit: true
   
   build-ksud-extra:
-    needs: [build-lkm, build-xx-lkm, build-ksuinit]
+    needs: [build-lkm, build-ksuinit]
     strategy:
       matrix:
         include:
@@ -392,4 +384,5 @@ jobs:
             pip3 install telethon
             python3 $GITHUB_WORKSPACE/scripts/ksubot.py $APK
           fi
+
           
